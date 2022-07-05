@@ -23,7 +23,7 @@ pipeline
       steps
       {
         sh 'docker rm -f webapp'
-        sh 'docker run --name webapp -idt -p 8090:80 webapp'
+        sh 'docker run --name webapp -idt -p 8090:80 mottythomas/webapp'
       }
     }
   }
