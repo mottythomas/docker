@@ -2,9 +2,9 @@ pipeline
 {
   agent none
   stages{
-    stage ('Clone Git Repository')
-      agent {label 'master'}
+    stage ('Clone Git Repository')   
     {
+      agent {label 'master'}
       steps
       {
         git branch: 'main', url: 'https://github.com/mottythomas/docker.git'
