@@ -4,7 +4,7 @@ pipeline
   stages{
     stage ('Clone Git Repository')   
     {
-      agent {label 'master'}
+      agent {label 'docker'}
       steps
       {
         git branch: 'main', url: 'https://github.com/mottythomas/docker.git'
@@ -13,7 +13,7 @@ pipeline
     }
     stage ('Docker Image Build and Push to Repo')
     {
-      agent {label 'master'}
+      agent {label 'docker'}
       steps
       {
        sh 'docker build -t mottythomas/webapp .' 
@@ -22,7 +22,7 @@ pipeline
     }
     stage ('Docker Container Deploy')
     {
-      agent {label 'docker'}
+      agent {label 'master'}
       steps
       {
         sh 'docker rm -f webapp'
