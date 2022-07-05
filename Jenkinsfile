@@ -1,6 +1,6 @@
 pipeline
 {
-  agent master
+  agent {'master'}
   stages{
     stage ('Clone Git Repository')
     {
@@ -20,7 +20,7 @@ pipeline
     }
     stage ('Docker Container Deploy')
     {
-      agent docker
+      agent {'docker'}
       steps
       {
         sh 'docker rm -f webapp'
