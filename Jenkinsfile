@@ -25,7 +25,7 @@ pipeline
       {
          withCredentials([string(credentialsId: 'repopwd', variable: 'repopwd')]) 
           {
-            sh "doker login 192.168.10.100:8080 -u admin -p ${repopwd}"
+            sh "docker login 192.168.10.100:8080 -u admin -p ${repopwd}"
           }
         sh 'docker push 192.168.10.100:8080/staging/myweb' 
       }
