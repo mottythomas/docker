@@ -21,13 +21,14 @@ pipeline
     }
     stage ('Docker Image Push to Repo')
     {
-      withCredentials([string(credentialsId: 'repopwd', variable: 'repopwd')]) 
-       {
-         sh "doker login -u admin -p ${repopwd}"
-        }
-      steps
+     steps
       {
-       sh 'docker push 192.168.10.100:8080/staging/myweb' 
+         withCredentials([string(credentialsId: 'repopwd', variable: 'repopwd')]) 
+          {
+            sh "doker login -u admin -p ${repopwd}"
+          }
+        sh 'docker push 192.168.10.100:8080/staging/myweb' 
+      }
        
       }
     }
