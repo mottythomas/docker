@@ -11,12 +11,24 @@ pipeline
         sh 'echo git clone completed successfully'
       }
     }
-    stage ('Docker Image Build and Push to Repo')
+    stage ('Docker Image Build')
     {
       steps
       {
        sh 'docker build -t 192.168.10.100:8080/staging/myweb .' 
-       sh 'docker push 192.168.10.100:8080/staging/myweb'
+       
+      }
+    }
+    stage ('Docker Image Push to Repo')
+    {
+      withCredentials([string(credentialsId: 'repopwd', variable: 'repopwd')]) 
+       {
+         sh "doker login -u admin -p ${repopwd}"
+        }
+      steps
+      {
+       sh 'docker push 192.168.10.100:8080/staging/myweb' 
+       
       }
     }
     
