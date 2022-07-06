@@ -1,10 +1,10 @@
 pipeline
 {
-  agent none
-  stages{
-    stage ('Clone Git Repository')   
+  agent docker
+  stages
+  {
+    stage ('Clone Git Repository')
     {
-      agent {label 'docker'}
       steps
       {
         git branch: 'main', url: 'https://github.com/mottythomas/docker.git'
@@ -13,21 +13,12 @@ pipeline
     }
     stage ('Docker Image Build and Push to Repo')
     {
-      agent {label 'docker'}
       steps
       {
-       sh 'docker build -t mottythomas/webapp .' 
-       sh 'docker push mottythomas/webapp'
+       sh 'docker build -t 192.168.10.100:8080/staging/myweb .' 
+       sh 'docker push 192.168.10.100:8080/staging/myweb'
       }
     }
-    stage ('Docker Container Deploy')
-    {
-      agent {label 'master'}
-      steps
-      {
-        sh 'docker rm -f webapp'
-        sh 'docker run --name webapp -idt -p 8090:80 mottythomas/webapp'
-      }
-    }
+    
   }
 }
