@@ -31,6 +31,17 @@ pipeline
       }
        
       }
+    stage ('Deploy to Swam Cluster')
+    {
+      steps
+      {
+        sshagent(['prodsvr'])
+                {
+                  sh 'ssh -o StrictHostKeyChecking=no prodadmin@192.168.10.151 bash /home/prodadmin/staging/webapp/deploy.sh'
+                 }
+        
+      }
+    }
     }
     
   }
